@@ -18,10 +18,9 @@ jobs:
           echo "versionName=$VNAME" >> $env:GITHUB_ENV
       - name: Install Dependencies
         run: |
-          choco install wget --no-progress
-          wget -q https://github.com/newpascal/newpascal/releases/download/np-v1.0.50/newpascal.zip
-          7z x -y "newpascal.zip" -o"C:\" > nul
-          wget "https://netcologne.dl.sourceforge.net/project/nsis/NSIS%203/3.05/nsis-3.05-setup.exe"
+          Invoke-WebRequest -Uri "https://github.com/newpascal/newpascal/releases/download/np-v1.0.50/newpascal.zip" -OutFile "newpascal.zip"
+          7z x -y "newpascal.zip" -o"C:\"
+          Invoke-WebRequest -Uri "https://sourceforge.net/projects/nsis/files/NSIS%203/3.05/nsis-3.05-setup.exe/download" -OutFile "nsis-3.05-setup.exe" -UserAgent "NativeHost"
           ./nsis-3.05-setup.exe /S
       - name: Build
         run: |
@@ -31,7 +30,7 @@ jobs:
           c:\newpascal\lazarus\lazbuild src\ultrastardx-win.lpi --lazarusdir=c:\newpascal\lazarus
       - name: Add prebuilt DLLs
         run: |
-          wget https://github.com/UltraStar-Deluxe/mxe/releases/latest/download/usdx-dlls-i686-v2023.12.0.zip -O usdx-dlls-i686.zip
+          Invoke-WebRequest -Uri "https://github.com/UltraStar-Deluxe/mxe/releases/latest/download/usdx-dlls-i686-v2023.12.0.zip" -OutFile usdx-dlls-i686.zip
           7z x -y usdx-dlls-i686.zip -ogame "*.dll"
         env:
           ARTIFACT_ACCESS_TOKEN: ${{ secrets.MxeActionsReadAccessToken }}
