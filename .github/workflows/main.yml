@@ -77,7 +77,7 @@ jobs:
           fi
       - name: Install Dependencies
         run: |
-          brew install fpc sdl2 sdl2_image automake portaudio lua ffmpeg
+          brew install fpc sdl2 sdl2_image automake portaudio lua ffmpeg@7.0
       - name: Build
         run: |
           ./autogen.sh
