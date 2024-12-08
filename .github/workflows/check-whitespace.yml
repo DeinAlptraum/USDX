@@ -1,6 +1,6 @@
 # Credit: https://github.com/zlib-ng/zlib-ng/blob/develop/.github/workflows/lint.yml
 name: Lint
-on: [pull_request]
+on: [pull_request, workflow_dispatch]
 
 jobs:
   lint:
